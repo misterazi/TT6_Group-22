@@ -53,9 +53,10 @@ def delete_currency(currency_id):
     db.session.commit()
     return jsonify({"message": "Currency deleted"}), 200
     
-@app.delete('/<int:currency_id>')
+@app.delete('/<int:wallet_id>')
 @jwt_required()
 def delete_wallet(wallet_id): 
     Wallet.query.filter_by(id=wallet_id).delete()
+    db.session.commit()
     return jsonify({"message": "Wallet deleted"}), 200
     
