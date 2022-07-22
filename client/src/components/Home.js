@@ -1,8 +1,8 @@
 import Button from "react-bootstrap/Button";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const navigate = Navigate();
+  const navigate = useNavigate();
 
   const handleLogoutButton = () => {
     navigate("/");
@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <div>
-      <Button block size="lg" type="submit" disabled={!handleLogoutButton()}>
+      <Button block size="lg" type="submit" onClick={handleLogoutButton}>
         Logout
       </Button>
     </div>
