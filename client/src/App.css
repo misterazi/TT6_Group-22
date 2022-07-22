@@ -1,3 +1,27 @@
 .App {
   text-align: center;
 }
+
+.Dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.Wallet {
+  width:256px;
+  height:80px;
+  border: 2px solid black;
+  border-radius: 4px;
+  margin:10px;
+  padding:10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropDownArea {
+  height: 48px;
+}

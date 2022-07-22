@@ -9,7 +9,7 @@ const NavBar=()=>{
         <button onClick={()=>{navigate('/transactiontable')}}>View past transactions</button>
         <button onClick={()=>{navigate('/viewwallets')}}>View User's Wallets</button>
         <button onClick={()=>{navigate('/')}}>Create Transaction</button>
-        <button onClick={()=>{navigate('/')}}>View wallet's data</button>
+        <button onClick={()=>{navigate('/viewwalletData')}}>View wallet's data</button>
         <button onClick={()=>{navigate('/')}}>Close Wallet</button>
 
     </nav>
