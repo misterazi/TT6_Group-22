@@ -60,3 +60,17 @@ class Exchange(db.Model):
 
     def __repr__(self) -> str:
         return 'Exchange Rate: {self.base}'
+        
+class Transaction(db.Model):
+    __tablename__ = "transaction"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, unique=True, nullable=False)
+    from_currency = db.Column(db.String(3), unique=True, nullable=False)
+    to_currency = db.Column(db.String(3), unique=True, nullable=False)
+    from_amount = db.Column(db.Float, unique=True, nullable=True)
+    to_amount = db.Column(db.Float, unique=True, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.now())
+    updated_at = db.Column(db.DateTime, onupdate=datetime.now())
+
+    def __repr__(self) -> str:
+        return 'Transaction: {self.id}'
