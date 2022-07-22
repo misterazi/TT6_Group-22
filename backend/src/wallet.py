@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 import validators
+import json
 from src.database import Wallet, Currency, User, db
 from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token, get_jwt_identity
 
