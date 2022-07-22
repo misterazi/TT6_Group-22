@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import WalletPage from "./WalletPage";
 import WalletDataPage from "./WalletDataPage";
+import DeleteWallet from "./DeleteWallet";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/transactiontable" element={<TransactionTable />} />
           <Route path="/viewwallets" element={<WalletPage />} />
           <Route path="/viewwalletData" element={<WalletDataPage />} />
+          <Route path="/deletewallet" element={<DeleteWallet/>}/>
         </Routes>
       </Router>
     </div>

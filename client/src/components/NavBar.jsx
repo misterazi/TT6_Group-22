@@ -10,7 +10,7 @@ const NavBar=()=>{
         <button onClick={()=>{navigate('/viewwallets')}}>View User's Wallets</button>
         <button onClick={()=>{navigate('/')}}>Create Transaction</button>
         <button onClick={()=>{navigate('/viewwalletData')}}>View wallet's data</button>
-        <button onClick={()=>{navigate('/')}}>Close Wallet</button>
+        <button onClick={()=>{navigate('/deletewallet')}}>Close Wallet</button>
 
     </nav>
     </>)
