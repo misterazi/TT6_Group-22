@@ -1,15 +1,19 @@
 import "./App.css";
+import { useState } from "react";
 import ExchangeRateDisplay from "./ExchangeRateDisplay";
 import TransactionTable from "./TransactionTable";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import Signup from "./components/Signup";
 import NavBar from "./components/NavBar";
 import WalletPage from "./WalletPage";
 import WalletDataPage from "./WalletDataPage";
 import DeleteWallet from "./DeleteWallet";
 
 function App() {
+  const [userid, setUserId] = useState(null);
+
   return (
     <div>
       <Router>
@@ -17,11 +21,12 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route exact path="/home" element={<Home />} />
+          <Route exact path="/signup" element={<Signup />} />
           <Route path="/exchangerate" element={<ExchangeRateDisplay />} />
           <Route path="/transactiontable" element={<TransactionTable />} />
           <Route path="/viewwallets" element={<WalletPage />} />
           <Route path="/viewwalletData" element={<WalletDataPage />} />
-          <Route path="/deletewallet" element={<DeleteWallet/>}/>
+          <Route path="/deletewallet" element={<DeleteWallet />} />
         </Routes>
       </Router>
     </div>
