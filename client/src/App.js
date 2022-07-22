@@ -23,10 +23,10 @@ function App() {
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route path="/exchangerate" element={<ExchangeRateDisplay />} />
-          <Route path="/transactiontable" element={<TransactionTable />} />
+          <Route path="/transactiontable" element={<TransactionTable userId={userId}/>} />
           <Route path="/viewwallets" element={<WalletPage />} />
           <Route path="/viewwalletData" element={<WalletDataPage />} />
-          <Route path="/deletewallet" element={<DeleteWallet />} />
+          <Route path="/deletewallet" element={<DeleteWallet userId={userId}/>} />
         </Routes>
       </Router>
     </div>

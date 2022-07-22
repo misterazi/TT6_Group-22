@@ -4,12 +4,15 @@ import walletdetails from "./data/walletdetails";
 
 
 //to only display transactions related to wallet_id tagged to user
-const WalletSelectForm=({choice,setChoice})=>{
+const WalletSelectForm=({choice,setChoice,userId})=>{
     // const [choice,setChoice]=useState("");
     const [wallets,setWallets]=useState();
     const [mod,setMod]=useState(0);
     useEffect(()=>{
-        fetch("/wallets/userid", { method: "GET" })
+        fetch(`https://nad-flask-template.herokuapp.com/wallet/${userId.id}/`, { method: "GET" ,headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userId.access}`,
+          },})
       .then((response) => response.json())
       .then((data) => {
         setWallets(data)
@@ -25,14 +28,14 @@ const WalletSelectForm=({choice,setChoice})=>{
         <>
         <h1>Wallet Description</h1>
         <ul>
-            {walletdetails.filter((x)=>x.user_id===2).map((item)=><p>{item.id}, {item.name}</p>)}
+            {walletdetails.filter((x)=>x.user_id===1).map((item)=><p>{item.id}, {item.name}</p>)}
 
         </ul>
         <form onSubmit={handleSubmit}>
             <select id="wallet" name="wallet" value={choice} onChange={(event)=>{setChoice(event.target.value); setMod(mod+1)}
                         
                     }>
-                {walletdetails.filter((x)=>x.user_id===2).map((item)=>{
+                {walletdetails.filter((x)=>x.user_id===1).map((item)=>{
                     return <option>{item.id}</option>
                 })}
             </select>
@@ -43,12 +46,12 @@ const WalletSelectForm=({choice,setChoice})=>{
 }
 
 
-const TransactionTable = () => {
+const TransactionTable = ({userId}) => {
     const [choice, setChoice]=useState();
   return (
     
       <>
-      <WalletSelectForm choice={choice} setChoice={setChoice}/>
+      <WalletSelectForm choice={choice} setChoice={setChoice} userId={userId}/>
       <p>User Selected: Wallet {choice}</p>
       {transactiondata.filter((x)=>{return x.wallet_id===parseInt(choice);}).map((item) => {
         return <div>
