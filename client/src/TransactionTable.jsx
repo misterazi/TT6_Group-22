@@ -1,16 +1,24 @@
 import transactiondata from "./data/transactiondata";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import walletdetails from "./data/walletdetails";
 
 
 //to only display transactions related to wallet_id tagged to user
 const WalletSelectForm=({choice,setChoice})=>{
     // const [choice,setChoice]=useState("");
+    const [wallets,setWallets]=useState();
+    const [mod,setMod]=useState(0);
+    useEffect(()=>{
+        fetch("/wallets/userid", { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => {
+        setWallets(data)
+    })},[mod])
 
     const handleSubmit=(event)=>{
         event.preventDefault();
-        console.log("clicked")
-        console.log(choice);
+        // console.log("clicked")
+        // console.log(choice);
     }
 
     return(
@@ -21,7 +29,7 @@ const WalletSelectForm=({choice,setChoice})=>{
 
         </ul>
         <form onSubmit={handleSubmit}>
-            <select id="wallet" name="wallet" value={choice} onChange={(event)=>{setChoice(event.target.value)}
+            <select id="wallet" name="wallet" value={choice} onChange={(event)=>{setChoice(event.target.value); setMod(mod+1)}
                         
                     }>
                 {walletdetails.filter((x)=>x.user_id===2).map((item)=>{

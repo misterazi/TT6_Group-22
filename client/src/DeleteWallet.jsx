@@ -1,13 +1,25 @@
 import walletdetails from "./data/walletdetails";
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 
 const DeleteWallet=()=>{
     const [num,setNum]=useState(false)
+    const [mod,setMod]=useState(0)
+    const [wallets,setWallets]=useState();
+    useEffect(()=>{
+        fetch("/wallets/userid", { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => {
+        setWallets(data)
+    })},[mod])
 
-    const handleConfirmDelete=()=>{
+   
+
+    const handleConfirmDelete=(id)=>{
         //input fetch to backend here
-        setNum(false);
+        fetch(`/${id}`,{method:"delete"})
+        .then(setMod(mod+1))
+        .then(setNum(false));
         alert("Account successfully deleted")
     }
 
