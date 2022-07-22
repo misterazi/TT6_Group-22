@@ -58,7 +58,7 @@ class Exchange(db.Model):
 
     def __repr__(self) -> str:
         return 'Exchange Rate: {self.base}'
-        
+
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable = False)

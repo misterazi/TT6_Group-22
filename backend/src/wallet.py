@@ -69,7 +69,8 @@ def get_wallet(wallet_id):
 @wallet.delete('/<int:wallet_id>')
 @jwt_required()
 def delete_wallet(wallet_id): 
-    # to add
+    Wallet.query.filter_by(id=wallet_id).delete()
+    db.session.commit()
     return jsonify({"message": "Wallet deleted"}), 200
 
 
@@ -97,7 +98,8 @@ def add_wallet_currency(wallet_id):
 
     return {
         "currency": {
-            "wallet_id": wallet_id,
+            "id": currency.id,
+            "wallet_id": currency.wallet_id,
             "currency": currency.currency,
             "amount": currency.amount
         }
@@ -120,6 +122,8 @@ def get_wallet_currencies(wallet_id):
 
     for currency in currencies:
         data.append({
+            'id': currency.id,
+            'wallet_id': currency.wallet_id,
             'currency': currency.currency,
             'amount': currency.amount
         })
@@ -127,3 +131,11 @@ def get_wallet_currencies(wallet_id):
     return {
         "currencies": data
     }, 200
+
+
+@wallet.delete('/currency/<int:currency_id>')
+@jwt_required()
+def delete_wallet_currency(currency_id):
+    Currency.query.filter_by(id=currency_id).delete()
+    db.session.commit()
+    return jsonify({"message": "Currency deleted"}), 200
