@@ -6,7 +6,7 @@ import transactiondata from "./data/transactiondata";
 const TransactionTable = () => {
   return (
     
-      <>{transactiondata.map((item) => {
+      <>{transactiondata.filter((x)=>{return x.wallet_id===1;}).map((item) => {
         return <div>
           {item.wallet_id}, {item.debit_id},{item.debit_currency},
           {item.debit_amount},{item.credit_id},{item.credit_currency},{item.credit_amount}
