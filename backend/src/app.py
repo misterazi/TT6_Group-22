@@ -5,6 +5,8 @@ from sqlalchemy import desc
 from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token, get_jwt_identity
 import json
 
+app = Flask(__name__)
+
 # @app.route("/")
 # def hello():
     # return "Hello World!"
@@ -17,7 +19,7 @@ def insert_transaction():
     to_currency = request.json['to_currency']
     from_amount = request.json['from_amount']
     to_amount = request.json['to_amount']
-    lastId = db.session.Transaction.query.with_entities(Transaction.id).order_by(desc(Transaction.id).first()
+    lastId = db.session.Transaction.query.with_entities(Transaction.id).order_by(desc(Transaction.id)).first()
     newId = lastId+1
     transaction = Transaction(id=newId, user_id=user_id, from_currency=from_currency, to_currency=to_currency, from_amount = from_amount, to_amount = to_amount)
     
@@ -33,7 +35,7 @@ def list_wallet_details_by_wallet_id(wallet_id):
     wallet_id = request.json['wallet_id']
     wallet = db.session.Wallet.query.filter_by(id=wallet_id).first()
     
-     return { 
+    return { 
         "name": wallet.name,
         "user_id": wallet.user_id,
     }
@@ -47,7 +49,7 @@ def list_wallet_details():
     return json.dumps(wallets)
     
 @app.delete('/<int:currency_id>')
-@jwt_required(currency_id)
+@jwt_required()
 def delete_currency(currency_id):
     Currency.query.filter_by(id=currency_id).delete()
     db.session.commit()
