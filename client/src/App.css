@@ -25,3 +25,9 @@
 .dropDownArea {
   height: 48px;
 }
+
+.transactionInput {
+  display: flex;
+  flex-direction: column;
+  margin:15px;
+}
