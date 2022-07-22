@@ -30,7 +30,6 @@ def register():
         "user" : { "name": name, "username": username }
     }, 200
 
-
 @auth.post('/login')
 def login():
     username = request.json.get("username", "")
@@ -56,7 +55,6 @@ def login():
     
     return { "error": "Wrong credentials" }, 401
 
-
 @auth.get('/me')
 @jwt_required()
 def me():
@@ -67,7 +65,6 @@ def me():
         "name": user.name,
         "username": user.username
     }
-
 
 @auth.get('/token/refresh')
 @jwt_required(refresh=True)

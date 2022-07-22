@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 import os
 from src.auth import auth
 from src.database import db
+from src.wallet import wallet
 from flask_jwt_extended import JWTManager
 
 def create_app(test_config=None):
@@ -24,6 +25,7 @@ def create_app(test_config=None):
     JWTManager(app)
 
     app.register_blueprint(auth)
+    app.register_blueprint(wallet)
 
     @app.errorhandler(404)
     def handle_404(e):
