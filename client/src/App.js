@@ -1,27 +1,20 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
-import { data } from "./data";
-import Axios from "axios";
-
+import ExchangeRateDisplay from "./ExchangeRateDisplay";
+import TransactionTable from "./TransactionTable";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./components/Login";
+import Home from "./components/Home";
 function App() {
-  const [walletList, setWalletList] = useState(data);
-
   return (
-    <div className="Dashboard">
-      <h2>Dashboard</h2>
-      {walletList
-        .filter((wallet) => {
-          return wallet.user_id === 1;
-        })
-        .map((wallet) => {
-          return (
-            <div className="Wallet">
-              <label>UserID: {wallet.user_id}</label>
-              <label>WalletID: {wallet.id}</label>
-              <label>{wallet.name}</label>
-            </div>
-          );
-        })}
+    <div>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/home" element={<Home />} />
+          <Route path="/exchangerate" element={<ExchangeRateDisplay />} />
+          <Route path="/transactiontable" element={<TransactionTable />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
