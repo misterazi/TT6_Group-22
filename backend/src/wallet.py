@@ -32,31 +32,16 @@ def create_wallet():
 @jwt_required()
 def get_all_wallets(): 
     current_user = get_jwt_identity()
-
-    wallets = Wallet.query.filter_by(user_id=current_user).all()
-
-    data = []
-
-    for wallet in wallets:
-        data.append({
-            'id': wallet.id,
-            'name': wallet.name
-        })
-
-    return {
-        "wallets": data
-    }, 200
+    user_id = current_user
+    wallets = db.session.Wallet.query.filter_by(user_id=user_id)
+    return json.dumps(wallets)
 
 
 @wallet.get('/<int:wallet_id>')
 @jwt_required()
 def get_wallet(wallet_id):
-    current_user = get_jwt_identity()
-
-    wallet = Wallet.query.filter_by(user_id=current_user, id=wallet_id).first()
-
-    if not wallet:
-        return { "error": "Wallet not found" }, 400
+    wallet_id = request.json['wallet_id']
+    wallet = db.session.Wallet.query.filter_by(id=wallet_id).first()
 
     return { 
         "wallet": {
