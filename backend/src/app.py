@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, request, jsonify
 from src.database import User, Transaction, Wallet, Currency, db
 from datetime import datetime
 from sqlalchemy import desc
+import json
 app = Flask(__name__)
 
 # @app.route("/")
@@ -29,14 +30,19 @@ def insert_transaction():
 @app.get("/list_wallet_details")
 def list_wallet_details():
     wallet_id = request.json['wallet_id']
-    wallet = db.session.query.filter_by(id=wallet_id).first()
+    wallet = db.session.Wallet.query.filter_by(id=wallet_id).first()
     
      return { 
         "name": wallet.name,
         "user_id": wallet.user_id,
         "currencies": wallet.currencies
     }
-        
+
+@app.get("/list_wallet_details_by_userid")
+def list_wallet_details():
+    user_id = request.json['user_id']
+    wallets = db.session.Wallet.query.filter_by(user_id=user_id)
+    return json.dumps(wallets)
     
 @app.post("/delete_currency")
 def delete_currency():
