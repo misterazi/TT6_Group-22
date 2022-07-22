@@ -13,14 +13,18 @@ import DeleteWallet from "./DeleteWallet";
 import CreateTransaction from "./CreateTransaction";
 
 function App() {
-  const [userId, setUserId] = useState({access:"", id:0});
+  const [userId, setUserId] = useState({ access: "", id: 0 });
 
   return (
     <div>
       <Router>
         <NavBar />
         <Routes>
-          <Route exact path="/" element={<Login userId={userId} setUserId={setUserId}/>} />
+          <Route
+            exact
+            path="/"
+            element={<Login userId={userId} setUserId={setUserId} />}
+          />
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route path="/exchangerate" element={<ExchangeRateDisplay />} />

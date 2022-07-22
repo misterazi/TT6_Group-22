@@ -16,16 +16,19 @@ const currData = [
   },
 ];
 const CreateTransaction = () => {
+  const [currencyData, setCurrData] = useState(currData);
   const [value, setValue] = useState("CAD");
   const [debitAmount, setDebitAmount] = useState();
   const [creditAmount, setCreditAmount] = useState();
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    console.log(value);
   };
 
   const handleAmountChange = (event) => {
     setDebitAmount(event.target.value);
+    console.log(currencyData[value]);
     setCreditAmount(event.target.value);
   };
   return (
@@ -36,6 +39,7 @@ const CreateTransaction = () => {
         <input
           id="debitAmount"
           name="debitAmount"
+          type="number"
           onChange={handleAmountChange}
         ></input>
         <label> SGD</label>
@@ -43,6 +47,7 @@ const CreateTransaction = () => {
         <input
           id="creditAmount"
           name="creditAmount"
+          type="number"
           value={creditAmount}
         ></input>
         <select value={value} onChange={handleChange}>
