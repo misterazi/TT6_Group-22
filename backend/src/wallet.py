@@ -11,9 +11,9 @@ def create_wallet():
     current_user = get_jwt_identity()
     wallet_name = request.json['name']
 
-    if Wallet.query.filter_by(id=current_user, name=wallet_name).first():
+    if Wallet.query.filter_by(user_id=current_user, name=wallet_name).first():
             return jsonify({
-                'error': 'Wallet already exists'
+                'error': 'Wallet with same name already exists'
             }), 400
     
     wallet = Wallet(name=wallet_name, user_id=current_user)
@@ -70,31 +70,60 @@ def get_wallet(wallet_id):
 @jwt_required()
 def delete_wallet(wallet_id): 
     # to add
-
     return jsonify({"message": "Wallet deleted"}), 200
 
 
-@wallet.post('/currency/all')
+@wallet.post('/currency/<int:wallet_id>')
 @jwt_required()
-def get_all_wallet_currencies():
-    username = request.json['username']
-    password = request.json['password']
-    name = request.json['name']
+def add_wallet_currency(wallet_id):
+    current_user = get_jwt_identity()
 
-    if len(username) > 20:
-        return {'error': "Username is too long"}, 400
+    currency = request.json['currency']
+    amount = request.json['amount']
 
-    if not username.isalnum() or " " in username:
-        return {'error': "Username should be alphanumeric, also no spaces"}, 400
-
-    if User.query.filter_by(username=username).first() is not None:
-        return {'error': "Username is taken"}, 409
-
-    pwd_hash = generate_password_hash(password)
-    user = User(username=username, password=pwd_hash, name=name)
-    db.session.add(user)
+    if not Wallet.query.filter_by(user_id=current_user, id=wallet_id).first():
+                return jsonify({
+                    'error': 'Wallet does not exists'
+                }), 400
+    
+    if Currency.query.filter_by(wallet_id=wallet_id, currency=currency).first():
+                return jsonify({
+                    'error': 'Wallet with same currency already exists'
+                }), 400
+        
+    currency = Currency(wallet_id=wallet_id, currency=currency, amount=amount)
+    db.session.add(currency)
     db.session.commit()
 
     return {
-        "user" : { "name": name, "username": username }
+        "currency": {
+            "wallet_id": wallet_id,
+            "currency": currency.currency,
+            "amount": currency.amount
+        }
+    }, 200
+    
+
+@wallet.get('/currency/<int:wallet_id>')
+@jwt_required()
+def get_wallet_currencies(wallet_id):
+    current_user = get_jwt_identity()
+
+    if not Wallet.query.filter_by(user_id=current_user, id=wallet_id).first():
+                return jsonify({
+                    'error': 'Wallet does not exists'
+                }), 400
+
+    currencies = Currency.query.filter_by(wallet_id=wallet_id).all()
+
+    data = []
+
+    for currency in currencies:
+        data.append({
+            'currency': currency.currency,
+            'amount': currency.amount
+        })
+
+    return {
+        "currencies": data
     }, 200
