@@ -1,15 +1,26 @@
 from flask import Flask
-from database import db
-from datetime imp
+from src.database import User, Transaction, Wallet, Currency, db
+from datetime import datetime
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return "Hello World!"
+# @app.route("/")
+# def hello():
+    # return "Hello World!"
 
-@app.route("/insert_transaction")
+@app.post("/insert_transaction")
 def insert_transaction():
-    return "testing_insert_transaction"
+    user_id = request.json['user_id']
+    from_currency = request.json['from_currency']
+    to_currency = request.json['to_currency']
+    from_amount = request.json['from_amount']
+    to_amount = request.json['to_amount']
+    transaction = Transaction(user_id=user_id, from_currency=from_currency, to_currency=to_currency, from_amount = from_amount, to_amount = to_amount)
+    db.session.add(transaction)
+    db.session.commit()
+
+    return {
+        "transaction" : { "user_id": user_id, "from_currency": from_currency, "to_currency":to_currency, "from_amount":from_amount, "to_amount":to_amount }
+    }, 200
 
 @app.route("/list_wallet_details")
 def list_wallet_details():
