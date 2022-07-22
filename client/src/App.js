@@ -6,6 +6,8 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import WalletPage from "./WalletPage";
+import WalletDataPage from "./WalletDataPage";
+
 function App() {
   return (
     <div>
@@ -17,6 +19,7 @@ function App() {
           <Route path="/exchangerate" element={<ExchangeRateDisplay />} />
           <Route path="/transactiontable" element={<TransactionTable />} />
           <Route path="/viewwallets" element={<WalletPage />} />
+          <Route path="/viewwalletData" element={<WalletDataPage />} />
         </Routes>
       </Router>
     </div>
