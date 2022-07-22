@@ -15,7 +15,7 @@ def insert_transaction():
     to_currency = request.json['to_currency']
     from_amount = request.json['from_amount']
     to_amount = request.json['to_amount']
-    lastId = Transaction.query.with_entities(Transaction.id).order_by(desc(Transaction.id).first()
+    lastId = db.session.Transaction.query.with_entities(Transaction.id).order_by(desc(Transaction.id).first()
     newId = lastId+1
     transaction = Transaction(id=newId, user_id=user_id, from_currency=from_currency, to_currency=to_currency, from_amount = from_amount, to_amount = to_amount)
     
@@ -28,7 +28,7 @@ def insert_transaction():
 
 @app.get("/list_wallet_details")
 def list_wallet_details():
-    return "testing list_wallet_details"
+    db.session.
     
 @app.route("/delete_currency")
 def delete_currency():
