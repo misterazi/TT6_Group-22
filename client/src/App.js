@@ -10,6 +10,7 @@ import NavBar from "./components/NavBar";
 import WalletPage from "./WalletPage";
 import WalletDataPage from "./WalletDataPage";
 import DeleteWallet from "./DeleteWallet";
+import CreateTransaction from "./CreateTransaction";
 
 function App() {
   const [userid, setUserId] = useState(null);
@@ -27,6 +28,7 @@ function App() {
           <Route path="/viewwallets" element={<WalletPage />} />
           <Route path="/viewwalletData" element={<WalletDataPage />} />
           <Route path="/deletewallet" element={<DeleteWallet />} />
+          <Route path="/createTransaction" element={<CreateTransaction />} />
         </Routes>
       </Router>
     </div>
