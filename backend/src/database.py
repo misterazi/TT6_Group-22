@@ -33,20 +33,18 @@ class Wallet(db.Model):
     def __repr__(self) -> str:
         return 'Wallet'
 
-
 class Currency(db.Model):
     __tablename__ = "currency"
     id = db.Column(db.Integer, primary_key=True)
     currency = db.Column(db.String(3), nullable=False)
     amount = db.Column(db.Float, nullable=False)
-    wallet_id = db.relationship("Bookmark", backref="user")
+    wallet_id = db.Column(db.Integer, db.ForeignKey('wallet.id'))
 
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
 
     def __repr__(self) -> str:
         return 'Currency'
-
 
 class Exchange(db.Model):
     __tablename__ = "exchange"
