@@ -1,50 +1,80 @@
-import { useNavigate  } from "react-router-dom";
-import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-export default function Login() {
-    const navigate = useNavigate();
-    const [user, setUser] = useState("");
-    const [password, setPassword] = useState("");
+import React, { Component } from "react";
+import { Navigate } from "react-router-dom";
+import axios from "axios";
 
-   
-      function validation() {
-        return user.length > 0 && password.length > 0;
-      }
-      const handleLoginSubmit = (e) => {
-            navigate("/home");
-      }
-      const handleSignUp= () => {
-        navigate("/signup");
+class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: "",
+      password: "",
+      signupClicked: false,
+      loginClicked: false,
+    };
+
+    this.onLogin = this.onLogin.bind(this);
+    this.onSignup = this.onSignup.bind(this);
+    this.onInputchange = this.onInputchange.bind(this);
   }
-      return (
-        <div className="Login">
-          <h1>Welcome to MarketPlace Login!</h1>
-          <Form onSubmit={handleLoginSubmit}>
-            <Form.Group size="lg" controlId="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                autoFocus
-                type="username"
-                value={user}
-                onChange={(e) => setUser(user)}
-              />
-            </Form.Group>
-            <Form.Group size="lg" controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(password)}
-              />
-            </Form.Group>
-            <Button block size="lg" type="submit" disabled={!validation()}>
-              Login
-            </Button>
-            <Button block size="lg" type="submit" onClick={handleSignUp}>
-              Signup
-            </Button>
-          </Form>
+
+  async onLogin(e) {
+    e.preventDefault();
+    if (this.state.username == "" || this.state.password == "") {
+      alert("Username and password cannot be blank!");
+    } else {
+      // add axios
+    }
+  }
+
+  onSignup() {
+    this.setState({
+      signupClicked: true,
+    });
+  }
+
+  onInputchange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.signupClicked && <Navigate to="/signup" replace={true} />}
+        {this.state.loginClicked && (
+          <Navigate to="/exchangerate" replace={true} />
+        )}
+        <h1>Login</h1>
+        <div>
+          <div>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              size="30"
+              onChange={this.onInputchange}
+              value={this.state.username}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input
+              name="password"
+              type="password"
+              id="password"
+              size="30"
+              onChange={this.onInputchange}
+              value={this.state.password}
+            />
+          </div>
+          <button onClick={this.onLogin}>Login</button>
+          <button onClick={this.onSignup}>Sign Up</button>
         </div>
-      );
+      </div>
+    );
+  }
 }
+export default Login;
