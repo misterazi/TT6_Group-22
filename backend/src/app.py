@@ -28,13 +28,21 @@ def insert_transaction():
 
 @app.get("/list_wallet_details")
 def list_wallet_details():
-    db.session.
+    wallet_id = request.json['wallet_id']
+    wallet = db.session.query.filter_by(id=wallet_id).first()
     
-@app.route("/delete_currency")
+     return { 
+        "name": wallet.name,
+        "user_id": wallet.user_id,
+        "currencies": wallet.currencies
+    }
+        
+    
+@app.post("/delete_currency")
 def delete_currency():
     return "testing_delete_currency"
     
-@app.route("/delete_wallet")
+@app.post("/delete_wallet")
 def delete_wallet():
     return "testing delete wallet"
     
