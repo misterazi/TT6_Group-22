@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Blueprint, request, jsonify
 from src.database import User, Transaction, Wallet, Currency, db
 from datetime import datetime
 from sqlalchemy import desc
@@ -26,7 +26,7 @@ def insert_transaction():
         "transaction" : { "id": newId  "user_id": user_id, "from_currency": from_currency, "to_currency":to_currency, "from_amount":from_amount, "to_amount":to_amount }
     }, 200
 
-@app.route("/list_wallet_details")
+@app.get("/list_wallet_details")
 def list_wallet_details():
     return "testing list_wallet_details"
     
