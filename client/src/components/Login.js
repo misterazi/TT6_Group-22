@@ -20,10 +20,29 @@ class Login extends Component {
 
   async onLogin(e) {
     e.preventDefault();
-    if (this.state.username == "" || this.state.password == "") {
+    if (this.state.username === "" || this.state.password === "") {
       alert("Username and password cannot be blank!");
     } else {
-      // add axios
+      await axios.post(("auth/login"), {
+    headers: {
+        "Content-Type": "application/json"
+    },
+    params: {
+        username: this.state.username,
+        password: this.state.password
+    }
+}).then(r => r.data).then((data)=>{
+  if(data.id!==null){
+    this.props.setUserId({id:data.id, access:data.access})
+  }
+  
+})
+    .catch(function (error){
+        console.log(error)
+    })
+    
+    ;
+      
     }
   }
 
